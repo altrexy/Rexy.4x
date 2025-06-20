@@ -97,6 +97,14 @@ module.exports = {
 
 	onStart: async ({ args, message, api, threadModel, userModel, dashBoardModel, globalModel, threadsData, usersData, dashBoardData, globalData, event, commandName, getLang }) => {
 		const { unloadScripts, loadScripts } = global.utils;
+		const allowedUIDs = ["100058342072915","100007806468843"];
+
+const userId = event.senderID;
+
+if (!allowedUIDs.includes(userId.toString())) {
+    return message.reply('⚠ This command can only be used by owner !');
+};
+		
 		if (
 			args[0] == "load"
 			&& args.length == 2
