@@ -1,56 +1,39 @@
-const { GoatWrapper } = require("fca-liane-utils");
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
+const { exec } = require('child_process');
 
-module.exports = {
-  config: {
-    name: 'shell',
-    aliases: ['$', '%'],
-    version: '1.0',
-    author: '404',
+module.exports.config = {
+    name: "shell",
+    aliases: ["sh"],
+    version: "1.0",
+    author: "Dipto",
     role: 2,
-    category: 'owner',
-    shortDescription: {
-      en: 'Executes terminal commands.',
-    },
-    longDescription: {
-      en: 'Executes terminal commands and returns the output.',
-    },
-    guide: {
-      en: '{pn} [command]',
-    },
-  },
-  onStart: async function ({ api, args, message, event }) {
-    const permission = global.GoatBot.config.owner;
-    if (!permission.includes(event.senderID)) {
-      api.sendMessage(
-        "Dekh dekh koto boro abal aiche dek sobhai 🦆🙌",
-        event.threadID,
-        event.messageID
-      );
-      return;
-    }
-    if (args.length === 0) {
-      message.reply('Usage: {pn} [command]');
-      return;
-    }
-
-    const command = args.join(' ');
-
-    try {
-      const { stdout, stderr } = await exec(command);
-
-      if (stderr) {
-        message.reply(`${stderr}`); // Fixed string interpolation
-      } else {
-        message.reply(`${stdout}`); // Fixed string interpolation
-      }
-    } catch (error) {
-      console.error(error);
-      message.reply(`Error: ${error.message}`); // Fixed string interpolation
-    }
-  },
+    description: "Execute shell commands",
+    category: "system",
+    guide: "{pn} <command>",
+    coolDowns: 5,
+    premium: false
 };
 
-const wrapper = new GoatWrapper(module.exports);
-wrapper.applyNoPrefix({ allowPrefix: true });
+module.exports.onStart = async ({ message, args }) => {
+
+    //if (!admin.includes(event.from.id)) { 
+      //  return message.reply("You do not have permission to execute shell commands.");
+   // }
+
+    if (!args.length) {
+        return message.reply("Please provide a command to execute.");
+    }
+    const command = args.join(' ');
+
+    exec(command, (error, stdout, stderr) => {
+        if (error) {
+            return message.reply(`Error executing command: ${error.message}`);
+        }
+        if (stderr) {
+            return message.reply(`Shell Error: ${stderr}`);
+        }
+
+
+ const output = stdout || "Command executed successfully with no output.";
+        message.reply(`${output}`);
+    });
+};
