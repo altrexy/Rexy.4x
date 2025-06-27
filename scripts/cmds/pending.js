@@ -53,7 +53,7 @@ module.exports = {
         );
 
         await api.changeNickname(
-          `${global.GoatBot.config.nickNameBot || "🌊𝙼𝚊𝚔𝚒𝚖𝚊 𝙱𝚋𝚢🥰"}`,
+          `${global.GoatBot.config.nickNameBot || "🎭E R E N 🧩 BOT🪢"}`,
           group.threadID,
           api.getCurrentUserID()
         );
