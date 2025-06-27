@@ -25,8 +25,8 @@
     "whiteListIds": [],
     "notes": "if you enable this feature, only the ids in the whiteListIds section can use the bot"
   },
-  "nickNameBot": "🌊𝙼𝚊𝚔𝚒𝚖𝚊 𝙱𝚋𝚢🥰",
-  "prefix": "+",
+  "nickNameBot": "🎭E R E N 🧩 BOT🪢",
+  "prefix": "#",
   "database": {
     "type": "mongodb",
     "uriMongodb": "mongodb+srv://mohammadrexy27:Rexy4x@cluster0.trkm8jn.mongodb.net/Rexy4x?retryWrites=true&w=majority&appName=Cluster0",
